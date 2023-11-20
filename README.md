@@ -1,11 +1,11 @@
 # Final Project for Intro to Data Science
 
-## Term YYYY
+## Fall 2023
 
 Team members: 
 
 
-- Student 2: [kouame koffi](mailto:student2@floridapoly.edu)
+- Student 1: [kouame koffi](mailto:student2@floridapoly.edu)
 
 
 
