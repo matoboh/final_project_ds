@@ -54,13 +54,13 @@ Figure.1 ![](file:///C:/Users/kouar/Downloads/graphe.1.png)
 ## How to find the agency with the highest number of launches.
 
 This code uses ggplot2 to create a horizontal bar plot where each bar represents an agency, and the length of the bar corresponds to the total number of launches by that agency. Adjust the head() function to change the number of top agencies displayed in the plot.
-Notice: The agency with the highest number of launches is NA and its number of launches is 2444.
+Notice: The agency with the highest number of launches is US agency and its number of launches is 2444.
 
-Figure.2 ![](file:///C:/Users/kouar/Downloads/Figure.2.png)
+Figure.2 ![](file:///C:/Users/kouar/Downloads/fig.2.png)
 
-We can use bar plot to specify more the agencies lanches.
+We can use bar plot to specify more the agencies launches.
 
-Figure.3 ![](file:///C:/Users/kouar/Downloads/Figure.3.png)
+Figure.3 ![](file:///C:/Users/kouar/Downloads/fig.3.png)
 
 Note that there were 41 agencies.
 
