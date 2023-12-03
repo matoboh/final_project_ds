@@ -1,3 +1,7 @@
+---
+title: Your Document Title
+---
+
 # Final Project for Intro to Data Science
 
 ## Fall 2023
@@ -43,7 +47,7 @@ library(scales)
 
 # Launches dataset
 
-[launches](file:///C:/Users/kouar/Downloads/1.photo.png)
+[launches](file:///C:/Users/kouar/Downloads/photo_1.png)
 
 ## Which years within the specified range had a higher or lower number of "Thor Burner 2" launches?
 
@@ -53,7 +57,7 @@ So, through the graph, we see that in 1967, there were more space launches durin
 Notice: The bar plot provides a visual comparison of launch frequencies across the selected years, helping to identify trends or patterns.
 
 
-Figure.1 ![](file:///C:/Users/kouar/Downloads/2.photo.png)
+Figure.1 ![](file:///C:/Users/kouar/Downloads/photo_2.png)
 
 
 
@@ -62,11 +66,11 @@ Figure.1 ![](file:///C:/Users/kouar/Downloads/2.photo.png)
 This code uses ggplot2 to create a horizontal bar plot where each bar represents an agency, and the length of the bar corresponds to the total number of launches by that agency. Adjust the head() function to change the number of top agencies displayed in the plot.
 Notice: The agency with the highest number of launches is US agency and its number of launches is 2444.
 
-Figure.2 ![](file:///C:/Users/kouar/Downloads/fig.2.png)
+Figure.2 ![](file:///C:/Users/kouar/Downloads/photo_3.png)
 
 We can use bar plot to specify more the agencies launches.
 
-Figure.3 ![](file:///C:/Users/kouar/Downloads/4.photo.png)
+Figure.3 ![](file:///C:/Users/kouar/Downloads/photo_4.png)
 
 Note that there were 41 agencies.
 
@@ -75,11 +79,9 @@ Note that there were 41 agencies.
 
 This code creates a bar plot with two bars, one for successful launches and one for failures. The height of each bar represents the count of launches with the respective outcome. Adjust the aesthetics and labels as needed.
 
-Figure.4 ![](file:///C:/Users/kouar/Downloads/Figure.4.png)
+Figure.4 ![](file:///C:/Users/kouar/Downloads/photo_6.png)
 
-
-
-
+![](file:///C:/Users/kouar/Downloads/3.photo.png)
 
 
 
