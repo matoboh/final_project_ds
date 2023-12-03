@@ -22,22 +22,28 @@ We will be using the data available at:
 The exploration of space has always symbolized a major achievement for humanity, arousing our curiosity and inspiring entire generations to explore the immensity of the unknown. Space launches mark crucial milestones in our quest to understand the universe, constantly pushing the boundaries of science and technology.
 
 This project undertakes an in-depth analysis of space launch data, with the aim of revealing several parameters such as:
-1. How many launches are there in a year?
-2. Which countries or agencies are participating?
-3. Know the year when there were more launches or fewer launches.
-4. Launch Success vs. Failure
+
+- How many launches were occurred in each year?
+
+- What was the first artificial satellite launched into the space?
+
+- Which space agency launched the the first space station, and when did it occur? 
+
+- How many launches were conducted by US and Russia?
+
+- Which countries or space agencies have been the most active in terms of space launches?
+
 Let’s dig deeper and answer these pressing questions!
 Our project studies around 5726 space launch reviews with characteristics such as tag, JD, mission, agency etc. This is our final project for the Introduction to Data Science course (Fall 2023) which will give you an overview of our analysis.
 
-## Load necessary Libraries 
+# Necessary libraries 
 
 library(tidyverse)
-library(dplyr)
-library(ggplot2)
 library(scales)
-library(lubridate)
-library(forcats)
 
+# Launches dataset
+
+[launches](file:///C:/Users/kouar/Downloads/1.photo.png)
 
 ## Which years within the specified range had a higher or lower number of "Thor Burner 2" launches?
 
@@ -47,11 +53,11 @@ So, through the graph, we see that in 1967, there were more space launches durin
 Notice: The bar plot provides a visual comparison of launch frequencies across the selected years, helping to identify trends or patterns.
 
 
-Figure.1 ![](file:///C:/Users/kouar/Downloads/graphe.1.png)
+Figure.1 ![](file:///C:/Users/kouar/Downloads/2.photo.png)
 
 
 
-## How to find the agency with the highest number of launches.
+## How to find the agency with the highest number of launches ? 
 
 This code uses ggplot2 to create a horizontal bar plot where each bar represents an agency, and the length of the bar corresponds to the total number of launches by that agency. Adjust the head() function to change the number of top agencies displayed in the plot.
 Notice: The agency with the highest number of launches is US agency and its number of launches is 2444.
@@ -60,7 +66,7 @@ Figure.2 ![](file:///C:/Users/kouar/Downloads/fig.2.png)
 
 We can use bar plot to specify more the agencies launches.
 
-Figure.3 ![](file:///C:/Users/kouar/Downloads/fig.3.png)
+Figure.3 ![](file:///C:/Users/kouar/Downloads/4.photo.png)
 
 Note that there were 41 agencies.
 
