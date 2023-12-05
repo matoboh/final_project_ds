@@ -1,6 +1,3 @@
----
-title: Your Document Title
----
 
 # Final Project for Intro to Data Science
 
@@ -59,7 +56,9 @@ Notice: The bar plot provides a visual comparison of launch frequencies across t
 
 Figure.1 ![](file:///C:/Users/kouar/Downloads/photo_2.png)
 
-
+On October 4, 1957, the Soviet Union launched the earth's first artificial satellite, Sputnik I. The successful launch came as a shock to experts and citizens in the United States, who had hoped that the United States would accomplish this scientific advancement first.The Sputnik launch marked the start of the space age and the US-USSR space race, and led to the creation of the National Aeronautics and Space Administration (NASA).
+We can get more information [here](https://guides.loc.gov/sputnik-and-the-space-race#:~:text=On%20October%204%2C%201957%2C%20the,Earth%20in%20around%2098%20minutes.)
+![](file:///C:/Users/kouar/Downloads/171004_sputnik_vision.avif)
 
 ## How to find the agency with the highest number of launches ? 
 
@@ -83,6 +82,22 @@ Figure.4 ![](file:///C:/Users/kouar/Downloads/photo_6.png)
 
 ![](file:///C:/Users/kouar/Downloads/3.photo.png)
 
+
+# Conclusion:
+
+In summary, our in-depth analysis of space launches revealed crucial patterns and trends by examining key parameters such as launch label, agency, year, variant, categories and type. Exploration of beacons and agencies highlighted the diversity of missions, illustrating collaborative efforts within the space community. The multi-year analysis identified temporal trends and technological advancements, while examining variants, categories and launch types offered insight into the different methodologies used, from satellites to crewed missions. In conclusion, data fusion has enriched our understanding of the complexities of space missions, contributing not only to the current state of space exploration, but also a solid basis for informed decisions and future advancements in the exciting field of space launches.
+
+
+# Futur Works
+
+Certainly, there remains a vast realm of exploration within this dataset. Key areas of focus include the integration of diverse data sets, encompassing weather conditions and geopolitical events, to provide a comprehensive view of the factors influencing space mission success. Predictive analytics, powered by machine learning today, is poised to play a central role in predicting mission success and optimizing risk management. Real-time monitoring systems and adaptive planning strategies will improve mission flexibility and responsiveness to dynamic conditions. The development of sophisticated space traffic management systems is imperative to cope with the increasing frequency of launches and ensure safe coordination in Earth's orbit.
+
+
+# Datasets Cited
+
+Thanks to [Dr.Rei Sanchez-Arias](https://github.com/reisanar/final_project_ds) for providing us with [dataset](). 
+
+The data we used is available at: https://github.com/matoboh/final_project_ds
 
 
 
