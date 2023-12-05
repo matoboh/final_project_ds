@@ -1,13 +1,467 @@
 ---
-title: "Final Report for Intro to Data Science"
-output: html_notebook
+title: "Space Launches"
+output: 
+   html_notebook:
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
 ---
 
-This is where the final project report write-up goes. 
+## Team member:
+**Kouame KOFFI** <br> My [e-mail](kkoffi4206@floridapoly.edu) address.
 
 
-Before you submit, make sure everything runs as expected.
+# Introduction
 
-You can add sections as you see fit. Make sure you have a section called "Introduction" at the beginning and a section called "Conclusion" at the end. The rest is up to you!
+The exploration of space has always symbolized a major achievement for humanity, arousing our curiosity and inspiring entire generations to explore the immensity of the unknown. Space launches mark crucial milestones in our quest to understand the universe, constantly pushing the boundaries of science and technology.
 
-_Make use of your knowledge of Markdown to appropriately typeset this report!_
+This project undertakes an in-depth analysis of space launch data, with the aim of revealing several parameters such as:
+
+- How many launches were occurred in each year?
+
+- What was the first artificial satellite launched into the space?
+
+- Which space agency launched the first space station, and when did it occur? 
+
+- How many launches were conducted by United States(US) and Russia?
+
+- Which countries or space agencies have been the most active in terms of space launches?
+
+Let’s dig deeper and answer these pressing questions!
+Our project studies around 5726 space launch reviews with characteristics such as tag, JD, mission, agency etc. This is our final project for the Introduction to Data Science course (Fall 2023) which will give you an overview of our analysis.
+
+# Necessary Libraries 
+
+```{r}
+library(tidyverse)
+library(scales)
+
+```
+# Dataset
+
+```{r}
+#read data through its link:
+launches <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-15/launches.csv")
+```
+## Rating classification
+Launches are normally classified in categories as found on this [website](https://aerospace.csis.org/data/space-environment-total-launches-by-country/). To create a more rich dataset we added the field rating_category determined as:
+
+```{r}
+print(launches)
+```
+Notice: We have got through this data, 5726 rows and 11 columns.
+
+
+## Exploration of the structure of dataset
+
+```{r}
+str(launches)
+```
+
+
+We need to use head() or tail() because it can be helpful to ensure that the data is loaded correctly and to understand the variable names and values before proceeding with further analysis or visualization.
+
+```{r}
+head(launches)
+```
+## Inspect the column names for "Launches":
+```{r}
+colnames(launches)
+```
+
+       "JD": In the context of space launches, "JD" typically stands for "Julian Date." The Julian Date is a continuous count of days since the beginning of the Julian Period,         which began on January 1, 4713 BCE.
+       
+       Regarding "Variant" in space launches, it generally refers to different versions or configurations of a particular launch vehicle or spacecraft.
+       
+       In more general terms, "tag" could refer to a label or identifier associated with a particular aspect of a space mission.
+       
+
+
+## Look at the data frame in Launches
+
+```{r}
+view(launches)
+```
+
+## Cleaning data
+### Checking for missing values
+
+By checking for missing values, you can make informed decisions about how to handle them and ensure the reliability of your analysis.
+
+```{r}
+summarize_missing <- launches %>% 
+  summarise_all(~sum(is.na(.)))
+print(summarize_missing)
+
+```
+Notice: We have 13 missing values in launch_date
+                4981 missing values in variant column
+                21 missing values in mission and
+                2444 missing values in agency column.
+                
+
+
+### Impute missing values based on data type
+We are going to clean some datasets to fix missing values
+```{r}
+launches_imputed <- launches %>%
+  mutate(across(where(is.numeric), ~if_else(is.na(.), mean(., na.rm = TRUE), .)),
+         across(where(is.character), ~if_else(is.na(.), "Unknown", .)))
+```
+
+
+### Find missing values
+```{r}
+missing_values_imputed <- launches_imputed %>%
+  summarise_all(~sum(is.na(.)))
+print(missing_values_imputed)
+```
+
+### Dislay Missing values
+```{r}
+launches_no_missing <- launches_imputed %>%
+  drop_na()
+```
+
+We need to write this code to provide clarity in the code about what the subsequent output represents.
+
+```{r}
+print(launches_no_missing)
+```
+### Check the no missing values for launches
+
+```{r}
+view(launches_no_missing)
+```
+
+
+# Data Exploration
+
+Before, conducting any detailed analysis of our dataset, we looked at a quick summary of the dataset about Launches.
+
+```{r}
+summary(launches)
+```
+## Univariate Exploration
+To gain deeper insights into the distribution of our space launch data, we conducted straightforward uni variate visualizations focused on specific parameters. Prior to delving into multivariate analyses to address our research questions, it is imperative to validate the robustness of our dataset and its fidelity as an accurate reflection of real-world space launch activities.
+
+### Count number of launches
+The following visualization illustrates the distribution of our dataset with respect to the count of launches. To enhance our comprehension and visualization of the data, we organized the graph according to the number of launches in specific categories. It is evident that a significant portion of the launches falls within the 12%-15% range. Considering that Real Simple states the average alcohol content of wine is typically between 11%-13%, the prevalence of launches in our dataset aligns well with real-world trends. This reinforces our confidence in the accuracy and representatives of the data.
+
+
+## Multivariate Exploration
+Having gained a comprehensive insight into our space launch dataset and confirming its fidelity as a true reflection of real-world scenarios, we are now poised to undertake a more intricate analysis by incorporating multiple variables.
+
+
+### Count number of polls per launch date?
+
+
+```{r}
+launches%>%
+  filter(month(launch_date)== 4)%>%
+  nrow()
+```
+A launch date had 504 polls.
+
+
+### Use mutate to create "Thor Burner 2" 
+```{r}
+ launches <- launches %>%
+  mutate(contains_thor_burner_2 = str_detect(type, "Thor Burner 2"))
+
+```
+
+### Filter rows wherebcondition is true
+
+```{r}
+thor_burner_2_launches <- launches %>%
+  filter(contains_thor_burner_2)
+```
+
+
+### Print the result
+```{r}
+print(thor_burner_2_launches)
+```
+
+
+## Summary statistics
+
+
+```{r}
+summary(launches[c("tag", "launch_year")])
+```
+Notice: we can see through this table that there was the first launch into space in 1957.
+
+### What was the first artificial satellite launched into the space?
+
+On October 4, 1957, the Soviet Union launched the earth's first artificial satellite, Sputnik I. The successful launch came as a shock to experts and citizens in the United States, who had hoped that the United States would accomplish this scientific advancement first.The Sputnik launch marked the start of the space age and the US-USSR space race, and led to the creation of the National Aeronautics and Space Administration (NASA).
+We can get more information [here](https://guides.loc.gov/sputnik-and-the-space-race#:~:text=On%20October%204%2C%201957%2C%20the,Earth%20in%20around%2098%20minutes.)
+
+
+# Data Analysis
+
+## How many launches were occurred between 1957 and 2018?
+
+
+
+```{r}
+count(launches)
+
+```
+We want to check how many launches between 1957 and 2018
+The number of launches was 5726 launches.
+
+
+
+
+### Filter launch from 1957 to 2018
+
+```{r}
+thor_burner_2_subset <- launches %>%
+  filter(launch_year %in% 1957:1971)
+```
+
+
+To better understand the number of "Thor Burner 2" per launch_year, we did a visualization that counts the number of "Thor Burner 2" per launch_year showing only  1967 to 1974 to give you an idea of what launch_year has the most selection of Thor Burner 2.
+
+```{r}
+ggplot(thor_burner_2_subset, aes(x = as.factor(launch_year), fill = contains_thor_burner_2)) +
+  geom_bar() +
+  scale_fill_manual(values = c("FALSE" = "blue", "TRUE" = "purple"), labels = c("No", "Yes")) +
+  labs(title = "Thor Burner 2 Launches (1957- 1971)",
+       x = "Launch Year",
+       y = "Number of Launches") +
+  theme_minimal()
+```
+
+
+### How many launches in 1967?
+```{r}
+launches_1967 <- launches %>% 
+  filter(launch_year == 1967)
+```
+
+The year 1967 in spaceflight saw the most orbital launches of the 20th century and more than any other year until 2021, including that of the first Australian satellite, WRESAT, which was launched from the Woomera Test Range atop an American Sparta rocket. 
+
+
+### Count the number of launches in 1967
+```{r}
+num_launches_1967 <- nrow(launches_1967)
+```
+
+```{r}
+print(num_launches_1967)
+```
+There were 139 launches in 1967
+
+The launches in 1967 showed a consistent distribution throughout the year. You can find more information [here](https://space.skyrocket.de/doc_chr/lau1967.htm)
+
+
+## Which countries or space agencies have been the most active in terms of space launches?
+
+### Which years within the specified range had a higher or lower number of "Thor Burner 2" launches?
+Year 1967 has a higher number of "Thor Burner 2", 1969 and 1973 have the same lower number of "Thor Burner 2" launches.
+
+Notice: The bar plot provides a visual comparison of launch frequencies across the selected years, helping to identify trends or patterns.
+
+
+### Find the total number of unique agencies
+After running this code, we can see 41 agencies
+```{r}
+total_agencies <- launches %>%
+  distinct(agency) %>%
+  count()
+```
+
+### Total Agency
+
+```{r}
+print(total_agencies)
+```
+
+## Which countries or space agencies have been the most active in terms of space launches?
+
+
+### Agency with the highest number of launches.  
+
+
+### Display the top agencies
+```{r}
+launches %>% 
+  group_by(agency) %>% 
+  filter(agency_type > 0) %>% 
+  summarize(num_launch = n())%>%
+  arrange(desc(num_launch))
+```
+
+## What is the name of agency that has the highest number of launches?
+ Find the agency with the highest number of launches
+ 
+
+```{r}
+launches_filtered <- launches %>%
+  filter(!is.na(agency), launch_year >= 1957, launch_year <= 2018)
+```
+
+
+```{r}
+launches_by_agency <- launches_filtered %>%
+  group_by(agency) %>%
+  summarize(num_launches = n())
+```
+ 
+### Find the agency with the highest number of launches.
+Us agency has the higher number of launches according this code.
+ 
+```{r}
+max_launches_agency <- launches_by_agency[which.max(launches_by_agency$num_launches), ]
+print(max_launches_agency$agency)
+print(max_launches_agency$num_launches)
+
+```
+Notice: After filtering launches between 1957 and 2018, we see that the United States have the highest number of launches with 1202 laumches during this period.
+
+
+
+### Visualization data
+```{r}
+ggplot(data = launches_no_missing %>% filter(agency %in% top_agencies$agency), aes(x = launch_year, y = agency)) +
+  geom_point(color = "red") +
+  labs(title = "Scatter Plot of Launches for Top 10 Agencies",
+        x = "Launch_ year",
+        y = "Number of launches") +
+  theme_minimal() 
+```
+
+In summary, the table provides a snapshot of the major contributors to space launches, showcasing the diverse participation of countries and private entities in space exploration. The high number of launches by the United States, Russia, China, and prominent private companies underscores the dynamic and evolving nature of space endeavors on a global scale.
+
+- US (United States): The United States has the highest number of launches with 1202. This is indicative of the prominent role of NASA and private U.S. companies in space exploration.
+
+- RU (Russia): Russia is the second-highest contributor with 619 launches. This reflects the historical significance of the Russian space program, including its involvement in the Soviet space era.
+
+- CN (China): China follows with 301 launches. This indicates the growth and advancement of China's space program in recent years.
+
+- AE (Arianespace): Arianespace (AE) is a multinational European launch service provider. With 260 launches, it highlights the collaborative efforts in European space exploration.
+
+- ILSK (International Launch Services, Inc.): ILSK is a U.S.-Russian joint venture. With 97 launches, it shows the international collaboration in space launches.
+
+- J (Japan): Japan (J) has 78 launches, reflecting its contributions to space exploration through agencies like JAXA (Japan Aerospace Exploration Agency).
+
+- ULAL (ULA, LLC): United Launch Alliance (ULAL), a joint venture between Boeing and Lockheed Martin, has 71 launches. It represents the collaboration between major aerospace companies.
+
+- SPX (SpaceX): SpaceX (SPX), a private U.S. company, has 68 launches. This showcases the increasing role of private companies in space exploration.
+
+- IN (India): India (IN) has 65 launches, reflecting the growth of the Indian Space Research Organisation (ISRO) in space activities.
+
+
+
+
+### Check the structure of the data
+ 
+```{r}
+str(launches)
+```
+### Order the dataset by the number of launches and select the top 10
+
+```{r}
+top_agencies <- launches_by_agency %>%
+  arrange(desc(num_launches)) %>%
+  head(10)
+```
+
+### Create a bar plot for the top 10 agencies
+
+```{r}
+ggplot(data = top_agencies, aes(x = reorder(agency, -num_launches), y = num_launches, fill = agency)) + 
+  geom_col(position = "dodge", color = "black") +
+  labs(title = "Top 10 agencies with the most launches",
+        x = "Agency",
+        y = "Number of Launches") +
+  theme_minimal() 
+```
+
+
+### Launch Success vs. Failure
+
+This code creates a bar plot with two bars, one for successful launches and one for failures. The height of each bar represents the count of launches with the respective outcome. Adjust the aesthetics and labels as needed.
+
+```{r}
+launch_success_failure <- launches %>%
+  group_by(launch_year) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(x = launch_year, y = count, fill = launch_year)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  labs(title = "Space Launch Success vs. Failure", x = "Outcome", y = "Count")
+launch_success_failure
+```
+
+### Modifying factor order
+
+```{r}
+mission_summary <- launches %>% 
+  group_by(mission) %>% 
+  summarize(
+  mission = mean(JD, na.rm = T), 
+    launch_year = mean( launch_year, na.rm = T), 
+    n = n()
+  )
+
+mission_summary
+```
+
+  
+  
+```{r}
+ggplot(data = mission_summary, aes(x = launch_year, y = n)) +
+  geom_point(stat = "identity", color = "red") +
+  labs(title = "Distribution of Missions Over the Years",
+        x = "Launch year",
+        y = "Number of Missions") +
+  theme_minimal() 
+  
+```
+  
+```{r}
+launches%>%
+  filter(type == "Ariane 44L") %>% 
+  group_by(launch_date) %>% 
+  summarize(
+    avg_systolic = mean(JD, na.rm = TRUE), 
+    avg_diastolic = mean(launch_year, na.rm = TRUE)
+  )
+```
+![](sea-flight-sky-earth.jpg)
+
+
+# Conclusion:
+
+In summary, our in-depth analysis of space launches revealed crucial patterns and trends by examining key parameters such as launch label, agency, year, variant, categories and type. Exploration of beacons and agencies highlighted the diversity of missions, illustrating collaborative efforts within the space community. The multi-year analysis identified temporal trends and technological advancements, while examining variants, categories and launch types offered insight into the different methodologies used, from satellites to crewed missions. In conclusion, data fusion has enriched our understanding of the complexities of space missions, contributing not only to the current state of space exploration, but also a solid basis for informed decisions and future advancements in the exciting field of space launches.
+
+
+# Futur Works
+
+Certainly, there remains a vast realm of exploration within this dataset. Key areas of focus include the integration of diverse data sets, encompassing weather conditions and geopolitical events, to provide a comprehensive view of the factors influencing space mission success. Predictive analytics, powered by machine learning today, is poised to play a central role in predicting mission success and optimizing risk management. Real-time monitoring systems and adaptive planning strategies will improve mission flexibility and responsiveness to dynamic conditions. The development of sophisticated space traffic management systems is imperative to cope with the increasing frequency of launches and ensure safe coordination in Earth's orbit.
+
+
+# Datasets Cited
+
+Thanks to [Dr.Rei Sanchez-Arias](https://github.com/reisanar/final_project_ds) for providing us with data. 
+
+The data we used is available at: https://github.com/matoboh/final_project_ds
+
+
+
+
+
+
+
+`
+
+
+
+
+
+
+
+ 
