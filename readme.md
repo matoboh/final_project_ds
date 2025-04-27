@@ -13,6 +13,9 @@ This dataset contains daily historical Bitcoin price and volume information, inc
 ![]()![image](https://github.com/user-attachments/assets/138d55af-51f0-4160-aaec-ab7de8e5e0df)
 
 This dataset contains 2661 observations and 12 features.
+
 There is not missing values.
+
+
 ![]()![image](https://github.com/user-attachments/assets/835c2078-e7db-4d78-91b4-fe1cf58935f1)
 
