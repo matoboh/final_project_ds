@@ -3,8 +3,7 @@
 ## Data Description
 Filename: BTC-USD.csv
 
-Source:
-![source](https://www.kaggle.com/datasets/pawelkauf/bitcoin-daily?utm_source=chatgpt.com)
+Source: https://www.kaggle.com/datasets/pawelkauf/bitcoin-daily?utm_source=chatgpt.com 
 
 Time Period: 2018–2025
 
